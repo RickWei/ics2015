@@ -1,0 +1,10 @@
+# This file will be included by the Makefile under the project directory.
+LIB_COMMON_CFLAGS_EXTRA := -m32 -fno-builtin 
+FLOAT_OBJ := $(FLOAT:.a=.o)i
+FLOAT_SRC := $(LIB_COMMON_DIR)/FLOAT.c
+$(shell mkdir -p obj/lib-common)
+$(FLOAT_OBJ): $(FLOAT_SRC)
+	$(call make_command, $(CC), $(LIB_COMMON_CFLAGS_EXTRA), ld $@, $(CFLAGS) $(FLOAT_SRC))
+$(FLOAT): $(FLOAT_OBJ)
+	ar r $(FLOAT) $(FLOAT_OBJ)
+
